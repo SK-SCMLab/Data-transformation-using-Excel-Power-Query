@@ -30,4 +30,14 @@ Using **Excel Power Query**, we solve challenges in:
 -         = Csv.Document(File.Contents("C:\Users\SSASIKIR\OneDrive - Capgemini\Desktop\2025\Personal files\Office related\Data analysis\My sample projects\Inventory_dataset.csv"),[Delimiter=",", Columns=54, Encoding=1252, QuoteStyle=QuoteStyle.None])
 2. Remove unnecessary top rows
 -         = Table.Skip(Source,1)
-3. 
+3. Use first rows as headers
+-         = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true])
+4. Remove the selected columns
+-        = Table.RemoveColumns(#"Promoted Headers",{"All constraints", "KT_Finish", "KT_IsValueFinish", "SO_TAGGED_Category", "KT_FinishGroup", "VendorDescription", "Vendor", "QualityDecision"})
+5. Reorder the required columns
+-        = Table.ReorderColumns(#"Removed Columns1",{"BatchNo", "IsEligibleForCP", "StockingPoint", "WIP/FG", "ProductClass", "WIDTH", "THICK", "SegmentGroup", "UOM", "UnresQuantity", "UDDate", "SERIES", "QUALITY", "MaterialNo", "LENGTH", "InventoryType", "GradeCode", "BatchCreationDate", "GRADE", "EDGE_CON_CODE", "EDGE_CON", "PlantCode", "ProdOrdText", "AgingInDays", "SLB_GR_COND", "HEAT_NUMBER", "APL_WC", "DaysSpan", "Diameter", "HasProduct", "MICRO_JBS_010", "WorkCenter", "GradeGroupDesc", "HR_COIL_NO", "HasTemplateProductSpecification", "MICRO_JBS_040", "StorageLocation", "PPDS_Stock_Type", "PrevWorkCenter", "REMARKS", "QA_RemShortText", "SPD_BATCH_NO", "IsEligibleForOC", "HasOCInventory", "FINISH", "HasCPInventory"}
+6. Remove the unwanted and unselected columns after reordering
+-        = Table.SelectColumns(#"Reordered Columns",{"BatchNo", "IsEligibleForCP", "StockingPoint", "WIP/FG", "ProductClass", "WIDTH", "THICK", "SegmentGroup", "UOM", "UnresQuantity", "UDDate", "SERIES", "QUALITY", "MaterialNo", "LENGTH", "InventoryType", "GradeCode", "BatchCreationDate", "GRADE", "EDGE_CON_CODE", "EDGE_CON", "PlantCode"})
+7. Change the Date format of the attribute Batch creation date
+-        = Table.TransformColumnTypes(#"Changed Type",{{"BatchCreationDate", type date}})
+8. 
