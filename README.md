@@ -49,4 +49,18 @@ Using **Excel Power Query**, we solve challenges in:
 -        = Table.Pivot(#"Removed Blank Rows1", List.Distinct(#"Removed Blank Rows1"[ProductState]), "ProductState", "PlantCode", List.Count)
 12. Extract the Stocking point Id from the string using the delimiter '_'
 -        = Table.TransformColumns(#"Renamed Columns1", {{"StockingPoint", each Text.BeforeDelimiter(_, "_"), type text}})
-13. 
+
+---
+
+## 🧑‍🦱 Excel functionalities used
+- Power Query Editor
+
+---
+
+## 👀 Requirements
+- Microsoft Excel 2016 or later
+- Excel understanding
+
+---
+
+*"Data is the new oil" -Clive Humby*
