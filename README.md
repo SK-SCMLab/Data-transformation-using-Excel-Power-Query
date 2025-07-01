@@ -19,7 +19,6 @@ The raw dataset includes
 Using **Excel Power Query**, we solve challenges in:
 - Normalizing column headers
 - Pivoting & Unpivoting inspection records
-- Merging production and inspection datasets
 - Creating conditional quality outputs
 - Error handling and exception transformation
 
@@ -42,5 +41,10 @@ Using **Excel Power Query**, we solve challenges in:
 -        = Table.TransformColumnTypes(#"Changed Type",{{"BatchCreationDate", type date}})
 8. Create a duplicate column for Batch creation and represent it in Quarters
 -        = Table.TransformColumns(#"Renamed Columns",{{"Quarter", Date.QuarterOfYear, Int64.Type}})
-9. 
--        
+9. Filter out the data rows having length ≠ 0
+-        = Table.SelectRows(#"Removed Columns2", each ([LENGTH] <> "0"))
+10. Remove blank rows for the attributes ProductState & PlantCode
+-        = Table.SelectRows(#"Removed Blank Rows", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
+11. Pivot the ProductState across the available plant codes
+-        = Table.Pivot(#"Removed Blank Rows1", List.Distinct(#"Removed Blank Rows1"[ProductState]), "ProductState", "PlantCode", List.Count)
+12. 
