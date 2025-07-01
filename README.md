@@ -40,4 +40,7 @@ Using **Excel Power Query**, we solve challenges in:
 -        = Table.SelectColumns(#"Reordered Columns",{"BatchNo", "IsEligibleForCP", "StockingPoint", "WIP/FG", "ProductClass", "WIDTH", "THICK", "SegmentGroup", "UOM", "UnresQuantity", "UDDate", "SERIES", "QUALITY", "MaterialNo", "LENGTH", "InventoryType", "GradeCode", "BatchCreationDate", "GRADE", "EDGE_CON_CODE", "EDGE_CON", "PlantCode"})
 7. Change the Date format of the attribute Batch creation date
 -        = Table.TransformColumnTypes(#"Changed Type",{{"BatchCreationDate", type date}})
-8. 
+8. Create a duplicate column for Batch creation and represent it in Quarters
+-        = Table.TransformColumns(#"Renamed Columns",{{"Quarter", Date.QuarterOfYear, Int64.Type}})
+9. 
+-        
