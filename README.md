@@ -47,4 +47,6 @@ Using **Excel Power Query**, we solve challenges in:
 -        = Table.SelectRows(#"Removed Blank Rows", each not List.IsEmpty(List.RemoveMatchingItems(Record.FieldValues(_), {"", null})))
 11. Pivot the ProductState across the available plant codes
 -        = Table.Pivot(#"Removed Blank Rows1", List.Distinct(#"Removed Blank Rows1"[ProductState]), "ProductState", "PlantCode", List.Count)
-12. 
+12. Extract the Stocking point Id from the string using the delimiter '_'
+-        = Table.TransformColumns(#"Renamed Columns1", {{"StockingPoint", each Text.BeforeDelimiter(_, "_"), type text}})
+13. 
